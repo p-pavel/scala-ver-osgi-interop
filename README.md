@@ -7,7 +7,11 @@ against an interface build for the corresponding scala version
 
 Then we install single api bundle (no matter which version) and both 2.12 and 3 bundles can use it.
 
-Sure, you can't refer to the corresponding Scala types of the other version in the inteface, but you can use the interface. Generally you as well could write the interface in Java.
+Sure, you can't refer to the corresponding Scala types of the other version in the inteface, but you can use the interface.
+
+Generally you as well could write the interface in Java. This is not a bad idea anyway if you're 
+aiming to provide the API that can be used from any JVM language (think like providing gRPC or REST
+API but millons time better anyway)
 
 ## How to run
 
