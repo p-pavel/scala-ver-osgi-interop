@@ -1,33 +1,45 @@
+import com.typesafe.sbt.osgi.Osgi
+
 ThisBuild / organization := "com.perikov"
 ThisBuild / publishMavenStyle := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
-
-// val commonSettings:  Seq[sbt.Def.Setting[_]] = Seq(
-//   osgiSettings,
-//   libraryDependencies += "org.apache.karaf.shell" % "org.apache.karaf.shell.commands" % "4.4.6",
-// )
+ThisBuild / version := "1.0.0-SNAPSHOT"
 
 lazy val scala212 =
   project
     .in(file("modules/scala212"))
-    .enablePlugins(SbtOsgi)
+    .enablePlugins(OsgiProject)
     .settings(
-      name := "com.perikov.osgi.examples.interop.scala212",
+      name := "osgi.examples.interop.scala212",
       scalaVersion := "2.12.10",
-      osgiSettings
+      libraryDependencies += "com.perikov" %% "osgi-examples-interop-api" % "1.0.0"
+
     )
 
 lazy val scala3 =
   project
     .in(file("modules/scala3"))
-    .enablePlugins(SbtOsgi)
+    .enablePlugins(OsgiProject)
     .settings(
-      name := "com.perikov.osgi.examples.interop.scala3",
+      name := "osgi.examples.interop.scala3",
       scalaVersion := "3.4.1",
-      osgiSettings
+      libraryDependencies += "com.perikov" %% "osgi-examples-interop-api" % "1.0.0",
+    )
+
+lazy val api =
+  project
+    .in(file("modules/api"))
+    .enablePlugins(OsgiProject)
+    .settings(
+      name := "osgi.examples.interop.api",
+      version := "1.0.0",
+      scalaVersion := "3.4.1",
+      crossScalaVersions := Seq("2.12.10", "3.4.1"),
+      OsgiKeys.exportPackage :=
+        Seq("com.perikov.osgi.examples.interop.api;version=\"1.0.0\"")
     )
 
 lazy val interop =
   project
     .in(file("."))
-    .aggregate(scala212, scala3)
+    .aggregate(scala212, scala3, api)
