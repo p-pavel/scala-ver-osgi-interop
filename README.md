@@ -26,6 +26,7 @@ are the decent platform ABI.
 - Check the generated "Java" code using some decompiler ("Show decompiled with CFR" in Metals)
 - When `@interface` annotation will be availble -- use it.
 - using `bnd` tools you can even check if your interface bundle has Scala dependencies (it should not)
+- ... or just write the interface in Java. Copilot can alleviate the pain of `;` and other syntax
 
 ## How to run
 
