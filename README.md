@@ -13,6 +13,18 @@ Generally you as well could write the interface in Java. This is not a bad idea 
 aiming to provide the API that can be used from any JVM language (think like providing gRPC or REST
 API but millons time better anyway)
 
+### Side note: writing Java (and rest of the JVM world) friendly Scala interfaces
+
+Remember: the best part of Java is not the crappy language itself, it's the JVM. Java interfaces
+are the decent platform ABI.
+
+- Use java collection interfaces (`Map`, `Set` etc ). Scala collection convertes provide lightweight wrappers.
+- Check for Higher Kinded Types. Java has no means to represent them
+- Check the generated "Java" code using some decompiler ("Show decompiled with CFR" in Metals)
+- When `@interface` annotation will be availble -- use it.
+- Represent async computations (your cats-effect IO) as `CompletableFuture` or `CompletionStage`. cats-effect provices cheap conversions. Talking about ZIO... my advice -- don't use it, but I'm sure they have something similar.
+- When returning parameterized types (like `CompletableFuture[a]`) use explicitly boxed types for `a`. `CompletableFuture[Int]` will result in `CompletableFuture[Object]` in Java, but `CompletableFuture[java.lang.Integer]` will be `CompletableFuture<Integer>`. This is not a problem for Scala, but Java will be happy (as of Scala 3.4.1)
+
 ## How to run
 
 TBD (provided upon request)
