@@ -7,6 +7,8 @@ against an interface build for the corresponding scala version
 
 Then we install single api bundle (no matter which version) and both 2.12 and 3 bundles can use it.
 
+Sure, you can't refer to the corresponding Scala types of the other version in the inteface, but you can use the interface. Generally you as well could write the interface in Java.
+
 ## How to run
 
 TBD (provided upon request)
